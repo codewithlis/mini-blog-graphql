@@ -1,0 +1,6 @@
+npm install apollo-server-express express graphql
+
+npm uninstall apollo-server-express
+npm install @apollo/server express body-parser cors
+npm install mongoose
+

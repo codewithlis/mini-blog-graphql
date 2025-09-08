@@ -3,15 +3,28 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "apollo-server-express": "^3.13.0",
-    "express": "^5.1.0",
-    "graphql": "^16.11.0"
+    "@apollo/server": "^4.12.2",
+    "@graphql-tools/merge": "^9.1.1",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dataloader": "^2.2.3",
+    "dotenv": "^17.2.1",
+    "express": "^4.21.2",
+    "graphql": "^16.11.0",
+    "graphql-playground-middleware-express": "^1.7.23",
+    "graphql-tag": "^2.12.6",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.1",
+    "yup": "^1.7.0"
   }
 }

@@ -1,0 +1,152 @@
+complete testing for both pagination styles and filtering in your GraphQL Playground.
+
+🔎 1. Offset-based Pagination + Filtering
+Example 1: Get first 3 posts (no filter)
+query {
+  getPosts(limit: 3, offset: 0) {
+    id
+    title
+    postCategory
+    createdAt
+  }
+}
+
+
+➡️ Expected:
+
+3 posts returned
+
+Ordered by createdAt descending
+
+Example 2: Paginate to next set
+query {
+  getPosts(limit: 3, offset: 3) {
+    id
+    title
+    postCategory
+  }
+}
+
+
+➡️ Expected:
+
+Next 3 posts (skipping first 3)
+
+Example 3: Filter by category
+query {
+  getPosts(category: TECHNOLOGY, limit: 2, offset: 0) {
+    id
+    title
+    postCategory
+  }
+}
+
+
+➡️ Expected:
+
+Only posts with category TECHNOLOGY
+
+Example 4: Search in titles (case-insensitive)
+query {
+  getPosts(search: "GraphQL", limit: 5, offset: 0) {
+    id
+    title
+    postCategory
+  }
+}
+
+
+➡️ Expected:
+
+Only posts where title contains "GraphQL"
+
+
+🔎 2. Cursor-based Pagination (Relay-style)
+Example 1: Fetch first 2 posts
+query {
+  getPostsConnection(first: 2) {
+    edges {
+      cursor
+      node {
+        id
+        title
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    totalCount
+  }
+}
+
+
+➡️ Expected:
+
+2 posts
+
+pageInfo.hasNextPage = true if more posts exist
+
+pageInfo.endCursor contains last post _id
+
+Example 2: Fetch next page using cursor
+
+(Replace AFTER_CURSOR_HERE with value from endCursor above)
+
+query {
+  getPostsConnection(first: 2, after: "AFTER_CURSOR_HERE") {
+    edges {
+      cursor
+      node {
+        id
+        title
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    totalCount
+  }
+}
+
+
+➡️ Expected:
+
+Next 2 posts after that cursor
+
+If no more posts, hasNextPage = false
+
+Example 3: Filtering with cursor
+query {
+  getPostsConnection(first: 3, category: EDUCATION, search: "API") {
+    edges {
+      node {
+        id
+        title
+        postCategory
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    totalCount
+  }
+}
+
+Test Coverage Checklist
+
+ Offset pagination basic
+
+ Offset pagination with category filter
+
+ Offset pagination with search filter
+
+ Cursor pagination first page
+
+ Cursor pagination next page
+
+ Cursor pagination with filters
+
+ 
